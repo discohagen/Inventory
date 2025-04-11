@@ -1,0 +1,27 @@
+services:
+  springventory:
+    image: springventory
+    build: ./backend
+    environment:
+      DB_HOST: postgres
+      DB_NAME: &dbName inventory
+      DB_USERNAME: &dbUsername admin
+      DB_PASSWORD: &dbPassword pleaseChangeMe
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:17.4
+    environment:
+      POSTGRES_DB: *dbName
+      POSTGRES_USER: *dbUsername
+      POSTGRES_PASSWORD: *dbPassword
+
+  reactventory:
+    image: reactventory
+    build: ./frontend
+    depends_on:
+      - springventory
+    ports:
+      - "8080:80"
+
