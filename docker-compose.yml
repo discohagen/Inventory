@@ -1,7 +1,6 @@
 services:
   springventory:
-    image: springventory
-    build: ./backend
+    image: ghcr.io/discohagen/springventory
     environment:
       DB_HOST: postgres
       DB_NAME: &dbName inventory
@@ -18,8 +17,7 @@ services:
       POSTGRES_PASSWORD: *dbPassword
 
   reactventory:
-    image: reactventory
-    build: ./frontend
+    image: ghcr.io/discohagen/reactventory
     depends_on:
       - springventory
     ports:
